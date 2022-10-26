@@ -1,75 +1,127 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
 }
 
+/*------------------ Dark theme color variables ------------------------*/
 
-body {
-    background-color: #182034;
-    height: 100vh;
-    width: 100vw;
+:root {
+	--primary-color: #001F54;
+	--secondary-color: #034078;
+	--tertiary-color: #FEFCFB;
+	--quaternary-color: #4c9ab1;
+    --button-change-color: #1282A2;
+}
+
+/*------------------ Calculator styles in light theme ------------------------*/
+
+header{
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.white {
-    background-color: #ffffff;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.white .display{
-    background-color: rgb(0, 0, 0);
+    height: 10%;
+    background-color: var(--quaternary-color);
+    justify-content: flex-end;
 }
 
-
-button {
-    background-color: #F1F2EB;
-    border: none;
-    width: 6vw;
-    height: 6vw;
-    font-weight: bold;
-	box-shadow: 4px 4px 4px rgba(118, 128, 220, 0.578);
+.change-theme{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
     border-radius: 5px;
-    margin-left: 1vw;
-
+    border: none;
+    box-shadow: 0px 4px 4px rgb(118 128 220 / 58%);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    height: 60%;
+    margin: 1vw;
+    width: 10vw;
 }
 
-button:hover {
-    background-color: rgb(164, 179, 229);
-
-}
-
-.first-section,
-.second-section,
-.third-section,
-.fourth-section {
-    margin-bottom: 1vw;
-    font-weight: b;
-
+body{
+    height: 100vh;
 }
 
 section {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     align-items: center;
-    border-radius: 5px;
-    background-color: #182034;
+    background-color: var(--tertiary-color);
+    display: flex;
+    flex-direction: column;
     height: 90%;
-    width: 40%;
+    justify-content: center;
+    width: 100vw;
 }
 
 .display {
-    background-color: #F1F2EB;
-    height: 20%;
-    box-shadow: 0px 4px 4px rgba(118, 128, 220, 0.578);
-
-    width: 72%;
-    margin-bottom: 3vw;
+    align-items: center;
+    background-color: var(--primary-color);
+    box-shadow: 0px 4px 4px rgb(118 128 220 / 58%);
+    color: var(--tertiary-color);
     border-radius: 5px;
+    display: flex;
+    font-size: 1.6rem;
+    font-weight: bold;
+    height: 6vw;
+    justify-content: flex-end;
+    margin-bottom: 3vw;
     margin-left: 1vw;
+    padding-right: 2vw;
+    width: 28.5%;
 }
+
+.first-row,
+.second-row,
+.third-row,
+.fourth-row {
+    margin-bottom: 1vw;
+
+}
+
+.number-button, .operator-button, .equal-button, .reset-button {
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 4px 4px rgb(118 128 220 / 58%);
+    color: var(--tertiary-color);
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    height: 6vw;
+    margin-left: 1vw;
+    width: 6vw;
+}
+
+.number-button, .operator-button{
+    background-color: var(--primary-color);
+}
+
+.number-button:hover, .operator-button:hover {
+    background-color: rgb(102, 134, 239);
+}
+
+.reset-button{
+    background-color: #645E9D;
+}
+
+.equal-button{
+    background-color: var(--quaternary-color);
+}
+
+/*------------------ Calculator styles in dark theme ------------------------*/
+.dark section {
+    background-color: #0A1128;
+}
+
+.dark header{
+    background-color: var(--tertiary-color);
+}
+
+.dark .change-theme{
+    background-color: var(--button-change-color);
+    color: var(--tertiary-color);
+}
+
+.dark .number-button, .dark .operator-button, .dark .display{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+}
+
