@@ -51,8 +51,11 @@ section {
     justify-content: center;
     width: 100vw;
 }
-
-.display {
+.displayOperator{
+    background-color: aqua;
+    display: flex;
+}
+.display, .displayOperator{
     overflow: hidden;
     align-items: center;
     background-color: var(--primary-color);

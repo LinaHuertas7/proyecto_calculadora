@@ -12,39 +12,40 @@ window.addEventListener("load", function () {
     const resetButton = document.querySelectorAll(".reset-button")[0];
     const equalButton = document.querySelectorAll(".equal-button")[0];
     let display = document.querySelector(".display");
+    let displayOperator = document.querySelector(".displayOperator");
 
 
     //console.log(numberButtons);
     //console.log(operatorButtons);
     //console.log(resetButton);
     //console.log(equalButton);
-    console.log(display);
+    //console.log(display);
 
 
 
-    let operatorB = "";
-    let operatorA = "";
+    let currentOperator = "";
+    let previousOperator = "";
     let operator;
 
-    numberButtons.forEach(function(button) {
-        button.addEventListener("click", function() {
+    numberButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
             addNumberDisplay(button.innerText);
         })
     })
-    
-    operatorButtons.forEach(function(button) {
+
+    operatorButtons.forEach(function (button) {
         button.addEventListener("click", function () {
             typeOperation(button.innerText);
             //alert(button.innerText)
         })
     })
 
-    equalButton.addEventListener("click", function() {
+    equalButton.addEventListener("click", function () {
         resultOperation();
         updateDisplay();
     })
 
-    resetButton.addEventListener("click", function() {
+    resetButton.addEventListener("click", function () {
         resetDisplay();
         updateDisplay();
     })
@@ -55,9 +56,8 @@ window.addEventListener("load", function () {
     //Funciones
 
     //Agregar numero 
-    function addNumberDisplay (number){
-        operatorB = operatorB.toString() + number.toString();
-
+    function addNumberDisplay(number) {
+        currentOperator = currentOperator.toString() + number.toString();
         //console.log(result);
         updateDisplay();
         //console.log(display.value);
@@ -65,38 +65,45 @@ window.addEventListener("load", function () {
 
     //Actualizar display
     function updateDisplay() {
-        if (operator == null) {
-            display.value = operatorB;
-        }else{
-            display.value = operator;
-        }
+        display.innerText = currentOperator;
     }
 
     //Reset Display
     function resetDisplay() {
-        operatorB = "";
-        operatorA = "";
-        operator = null;
+        currentOperator = "";
+        previousOperator = "";
+        operator = "";
+    }
+
+    function viewOperator(typeOperation){
+        displayOperator.innerText = typeOperation;
     }
 
     //Operation 
-    function typeOperation(typeOperation){
-        if (operatorB !== "") {
-            operator = typeOperation.toString();
-            operatorB = operatorA;
-            operatorA = "";
-            calculate();
-            updateDisplay();
+    function typeOperation(typeOperation) {
+        viewOperator(typeOperation);
+        if (currentOperator === "")return;
+        
+        if (previousOperator !== "") {
+            resultOperation();
         }
+        operator = typeOperation.toString();
+        previousOperator = currentOperator;
+        currentOperator = "";
     }
 
+
     function resultOperation() {
-        let result = 0;
-        let firstValue = parseInt(operatorB);
-        let secondValue = parseInt(operatorA);
+        let result;
+        let firstValue = parseInt(previousOperator);
+        let secondValue = parseInt(currentOperator);
+        if (isNaN(firstValue) || isNaN(secondValue)) {
+            return;
+        }
+
         switch (operator) {
             case "-":
-                result = firstValue - secondValue;              
+                result = firstValue - secondValue;
                 break;
             case "+":
                 result = firstValue + secondValue;
@@ -106,12 +113,14 @@ window.addEventListener("load", function () {
                 break;
             case "/":
                 result = firstValue / secondValue;
-                break;            
+                break;
             default:
                 break;
         }
-    }setTimeout(() => {
-        resetDisplay();
-    }, "1000")
+        currentOperator = result;
+        previousOperator = "";
+        operator = "";
+    }
 
+    resetDisplay();
 })
