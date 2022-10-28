@@ -1,12 +1,10 @@
-window.addEventListener("load", function () {
-
     //Chage dark theme 
     const buttonChangeTheme = document.querySelector(".change-theme");
     buttonChangeTheme.addEventListener("click", function () {
         document.body.classList.toggle("dark");
     })
 
-    //Calculator logic
+    //Capture of the elements of the Dom
     const numberButtons = document.querySelectorAll(".number-button");
     const operatorButtons = document.querySelectorAll(".operator-button");
     const resetButton = document.querySelectorAll(".reset-button")[0];
@@ -14,56 +12,24 @@ window.addEventListener("load", function () {
     let display = document.querySelector(".display");
     let displayOperator = document.querySelector(".displayOperator");
 
-
-    //console.log(numberButtons);
-    //console.log(operatorButtons);
-    //console.log(resetButton);
-    //console.log(equalButton);
-    //console.log(display);
-
-
-
+    //Declaration of main variables;
     let currentOperator = "";
     let previousOperator = "";
     let operator;
 
-    numberButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            addNumberDisplay(button.innerText);
-        })
-    })
-
-    operatorButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            typeOperation(button.innerText);
-            //alert(button.innerText)
-        })
-    })
-
-    equalButton.addEventListener("click", function () {
-        resultOperation();
-        updateDisplay();
-    })
-
-    resetButton.addEventListener("click", function () {
-        resetDisplay();
-        updateDisplay();
-    })
+    //Reset display for default
+    resetDisplay();
 
 
+    //Functions
 
-
-    //Funciones
-
-    //Agregar numero 
+    //Add number to display
     function addNumberDisplay(number) {
         currentOperator = currentOperator.toString() + number.toString();
-        //console.log(result);
         updateDisplay();
-        //console.log(display.value);
     }
 
-    //Actualizar display
+    //Update display
     function updateDisplay() {
         display.innerText = currentOperator;
     }
@@ -72,18 +38,22 @@ window.addEventListener("load", function () {
     function resetDisplay() {
         currentOperator = "";
         previousOperator = "";
-        operator = "";
+        operator = " ";
     }
 
-    function viewOperator(typeOperation){
+    //View operator in the second display
+    function viewOperator(typeOperation) {
+        if (typeOperation === undefined) {
+            typeOperation = "";
+        }
         displayOperator.innerText = typeOperation;
     }
 
-    //Operation 
+    //Identify the operation 
     function typeOperation(typeOperation) {
         viewOperator(typeOperation);
-        if (currentOperator === "")return;
-        
+        if (currentOperator === "") return;
+
         if (previousOperator !== "") {
             resultOperation();
         }
@@ -92,15 +62,18 @@ window.addEventListener("load", function () {
         currentOperator = "";
     }
 
-
+    //Result of the operation
     function resultOperation() {
         let result;
+
+        //Convert text to Int
+
         let firstValue = parseInt(previousOperator);
         let secondValue = parseInt(currentOperator);
         if (isNaN(firstValue) || isNaN(secondValue)) {
             return;
         }
-
+        //Operations
         switch (operator) {
             case "-":
                 result = firstValue - secondValue;
@@ -122,5 +95,32 @@ window.addEventListener("load", function () {
         operator = "";
     }
 
-    resetDisplay();
-})
+
+    //User events 
+
+    //Number buttons (Node List)
+    numberButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            addNumberDisplay(button.innerText);
+        })
+    })
+
+    //Operator buttons (Node List)
+    operatorButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            typeOperation(button.innerText);
+        })
+    })
+
+    //Equal Button 
+    equalButton.addEventListener("click", function () {
+        resultOperation();
+        updateDisplay();
+    })
+
+    //Reset Button 
+    resetButton.addEventListener("click", function () {
+        resetDisplay();
+        updateDisplay();
+        viewOperator()
+    })
